@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarra Bouzaiene · Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins','Segoe UI',system-ui,sans-serif;transition:background-color .3s ease,border-color .3s,color .2s}
+:root{--bg:#fff8f9;--surface:#fff;--surface-alt:#ffeef2;--text:#2b1a1e;--text-light:#6b4a52;--primary:#e63956;--primary-soft:#ff8fa3;--secondary:#ffb3c6;--secondary-soft:#ffd6e0;--gradient:linear-gradient(135deg,#e63956,#ffb3c6);--gradient-soft:linear-gradient(135deg,#ff8fa3,#ffd6e0);--border:rgba(230,57,86,.18);--card-shadow:0 12px 28px -8px rgba(230,57,86,.2);--particle-color:230,57,86;--particle-accent:255,179,198}
+[data-theme="dark"]{--bg:#1a0e12;--surface:#26141a;--surface-alt:#331a22;--text:#ffeef2;--text-light:#e8c4cc;--primary:#ff6b85;--primary-soft:#ff9eb3;--secondary:#ffc2d1;--secondary-soft:#ffd9e3;--border:rgba(255,107,133,.25);--card-shadow:0 12px 28px -8px rgba(0,0,0,.7);--particle-color:255,107,133;--particle-accent:255,194,209}
+body{background-color:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;position:relative;overflow-x:hidden;padding:1.5rem 1rem 3rem}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.85}
+.waves-container{position:fixed;bottom:0;left:0;width:100%;height:220px;z-index:0;pointer-events:none;opacity:.35;overflow:hidden}
+.waves-container svg{width:100%;height:100%}
+.wave-path-1{fill:var(--primary-soft);animation:waveMove 12s ease-in-out infinite}
+.wave-path-2{fill:var(--secondary);animation:waveMove 16s ease-in-out infinite reverse;opacity:.6}
+.wave-path-3{fill:var(--primary);animation:waveMove 20s ease-in-out infinite;opacity:.25}
+@keyframes waveMove{0%,100%{transform:translateX(0) translateY(0)}50%{transform:translateX(-30px) translateY(10px)}}
+.container{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.5rem}
+header{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1.5rem;background:rgba(255,255,255,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:60px;border:1px solid var(--border);box-shadow:var(--card-shadow);flex-wrap:wrap;gap:1rem}
+[data-theme="dark"] header{background:rgba(38,20,26,.75)}
+.logo{font-size:1.7rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.5px}
+.nav-controls{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.lang-switch{display:flex;background:var(--surface-alt);border-radius:40px;padding:.25rem;border:1px solid var(--border)}
+.lang-btn{background:transparent;border:none;padding:.5rem 1rem;border-radius:30px;font-weight:600;color:var(--text-light);cursor:pointer;font-size:.85rem;transition:.2s}
+.lang-btn.active{background:var(--gradient);color:#fff;box-shadow:0 4px 10px rgba(230,57,86,.3)}
+.theme-toggle{background:var(--surface-alt);border:1px solid var(--border);border-radius:40px;padding:.55rem 1.1rem;cursor:pointer;color:var(--text);font-size:1.1rem;display:flex;align-items:center;gap:.4rem;font-weight:500;transition:.2s}
+.theme-toggle:hover{background:var(--primary-soft);color:#fff}
+.hero{display:flex;align-items:center;gap:2.5rem;background:var(--surface);border-radius:48px;padding:2.5rem;border:1px solid var(--border);box-shadow:var(--card-shadow);flex-wrap:wrap;justify-content:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,179,198,.35),transparent 70%);border-radius:50%;pointer-events:none}
+.profile-img{width:170px;height:170px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px var(--surface),0 0 0 10px var(--secondary-soft);transition:.3s;position:relative;z-index:1;overflow:hidden;padding:0;flex-shrink:0}
+.profile-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.profile-img:hover img{transform:scale(1.06)}
+.hero-text{flex:1;min-width:280px;position:relative;z-index:1}
+.hero-text h1{font-size:2.6rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;line-height:1.2}
+.hero-text .sub{font-size:1.15rem;color:var(--text-light);margin-bottom:.4rem;font-weight:500}
+.hero-text .tagline{font-size:.95rem;color:var(--primary);font-weight:600;margin-bottom:1.2rem;letter-spacing:.3px}
+.contact-info{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1rem}
+.contact-info a,.contact-info span{display:flex;align-items:center;gap:.5rem;color:var(--text-light);text-decoration:none;font-weight:500;background:var(--surface-alt);padding:.5rem 1.1rem;border-radius:40px;border:1px solid var(--border);transition:.2s;font-size:.9rem}
+.contact-info a:hover{background:var(--primary-soft);color:#fff;border-color:var(--primary);transform:translateY(-2px)}
+.contact-info i{color:var(--primary);font-size:1rem}
+.contact-info a:hover i{color:#fff}
+.cv-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--gradient);color:#fff;text-decoration:none;padding:.8rem 1.8rem;border-radius:50px;font-weight:700;font-size:1rem;margin-top:1.2rem;box-shadow:0 8px 20px -6px var(--primary);transition:.25s;border:none;cursor:pointer}
+.cv-btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px -6px var(--primary);filter:brightness(1.05)}
+section{background:var(--surface);border-radius:40px;padding:2rem;border:1px solid var(--border);box-shadow:var(--card-shadow);position:relative}
+.section-title{font-size:1.8rem;font-weight:700;margin-bottom:1.8rem;display:flex;align-items:center;gap:.9rem;color:var(--text)}
+.section-title i{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.9rem}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--gradient);border-radius:2px}
+.timeline-item{position:relative;margin-bottom:1.6rem;padding-left:1.2rem}
+.timeline-item::before{content:'';position:absolute;left:-1.65rem;top:.4rem;width:14px;height:14px;border-radius:50%;background:var(--gradient);border:3px solid var(--surface);box-shadow:0 0 0 2px var(--primary-soft)}
+.timeline-item h4{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.2rem}
+.timeline-item .meta{font-size:.82rem;color:var(--primary);font-weight:600;margin-bottom:.3rem}
+.timeline-item p{color:var(--text-light);font-size:.9rem;line-height:1.5}
+.skills-bars{display:flex;flex-direction:column;gap:1.3rem}
+.skill-bar-item{display:flex;flex-direction:column;gap:.4rem}
+.skill-bar-header{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.95rem}
+.skill-bar-header .name{display:flex;align-items:center;gap:.5rem;color:var(--text)}
+.skill-bar-header .name i{color:var(--primary);width:18px;text-align:center}
+.skill-bar-header .percent{color:var(--primary);font-weight:700;font-size:.85rem}
+.skill-bar-track{width:100%;height:10px;background:var(--surface-alt);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.skill-bar-fill{height:100%;background:var(--gradient);border-radius:20px;width:0%;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem}
+.project-card{background:var(--surface-alt);border-radius:30px;padding:1.7rem;border:1px solid var(--border);transition:.25s;position:relative;overflow:hidden}
+.project-card::after{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,179,198,.3),transparent 70%);border-radius:50%}
+.project-card:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:0 18px 30px -12px var(--primary)}
+.project-card .badge{display:inline-block;background:var(--gradient);color:#fff;font-size:.7rem;font-weight:700;padding:.25rem .8rem;border-radius:20px;margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.5px}
+.project-card h3{font-size:1.2rem;font-weight:700;margin-bottom:.6rem;color:var(--text)}
+.project-card p{color:var(--text-light);font-size:.92rem;line-height:1.55}
+.project-card .tech{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.tech span{background:var(--surface);border:1px solid var(--border);padding:.2rem .7rem;border-radius:20px;font-size:.72rem;font-weight:600;color:var(--primary)}
+.lang-list{display:flex;flex-wrap:wrap;gap:1rem}
+.lang-item{background:var(--surface-alt);border-radius:30px;padding:.8rem 1.5rem;border:1px solid var(--border);display:flex;align-items:center;gap:.7rem;font-weight:600;font-size:.95rem}
+.lang-item i{color:var(--primary)}
+.lang-item .level{font-size:.78rem;color:var(--text-light);font-weight:500}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem}
+.gallery-item{aspect-ratio:1/1;background:var(--gradient-soft);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:2.4rem;color:#fff;box-shadow:0 6px 16px rgba(230,57,86,.2);transition:.25s;cursor:pointer;border:1px solid rgba(255,255,255,.3);position:relative;overflow:hidden}
+.gallery-item .label{font-size:.7rem;font-weight:700;color:var(--text);margin-top:.3rem;text-align:center;padding:0 .4rem}
+.gallery-item:hover{transform:scale(1.04) rotate(1deg);filter:brightness(1.05);box-shadow:0 12px 24px -6px var(--primary)}
+footer{text-align:center;color:var(--text-light);font-size:.88rem;padding:1rem 0 0;opacity:.85}
+footer a{color:var(--primary);text-decoration:none;font-weight:600}
+[dir="rtl"] .timeline{padding-left:0;padding-right:2rem}
+[dir="rtl"] .timeline::before{left:auto;right:8px}
+[dir="rtl"] .timeline-item{padding-left:0;padding-right:1.2rem}
+[dir="rtl"] .timeline-item::before{left:auto;right:-1.65rem}
+@media(max-width:680px){.hero{padding:2rem 1.5rem;text-align:center}.hero-text h1{font-size:2rem}.contact-info{justify-content:center}header{justify-content:center}.section-title{font-size:1.5rem}.gallery-grid{grid-template-columns:repeat(2,1fr)}.profile-img{width:140px;height:140px}}
+</style>
+</head>
+<body>
+<canvas id="particle-canvas"></canvas>
+<div class="waves-container">
+<svg viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<path class="wave-path-1" d="M0,160 C240,220 480,100 720,140 C960,180 1200,80 1440,130 L1440,220 L0,220 Z"/>
+<path class="wave-path-2" d="M0,180 C300,120 600,200 900,160 C1200,120 1440,180 1440,180 L1440,220 L0,220 Z"/>
+<path class="wave-path-3" d="M0,200 C360,160 720,220 1080,180 C1260,160 1380,200 1440,190 L1440,220 L0,220 Z"/>
+</svg>
+</div>
+<div class="container">
+<header>
+<div class="logo">Sarra Bouzaiene</div>
+<div class="nav-controls">
+<div class="lang-switch" id="langSwitch">
+<button class="lang-btn active" data-lang="fr">FR</button>
+<button class="lang-btn" data-lang="en">EN</button>
+<button class="lang-btn" data-lang="ar">AR</button>
+</div>
+<button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> <span id="themeLabel">Sombre</span></button>
+</div>
+</header>
+<section class="hero">
+<div class="profile-img">
+<img src="sarra.jpg" alt="Sarra Bouzaiene">
+</div>
+<div class="hero-text">
+<h1 id="heroName">Sarra Bouzaiene</h1>
+<p class="sub" id="heroSub">Étudiante en Business Computing – E-Business</p>
+<p class="tagline" id="heroTagline">DÉVELOPPEMENT WEB • IA / DATA • E-BUSINESS</p>
+<div class="contact-info">
+<a href="mailto:Sarrabouzaiene8@gmail.com"><i class="fas fa-envelope"></i> Sarrabouzaiene8@gmail.com</a>
+<span><i class="fas fa-phone-alt"></i> +216 95 652 120</span>
+<a href="https://linkedin.com/in/sarra-bouzaiene-760b27338" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+<span><i class="fas fa-map-marker-alt"></i> Ben Arous, Tunisie</span>
+</div>
+<a href="#" class="cv-btn" id="cvBtn"><i class="fas fa-download"></i> <span id="cvBtnText">Télécharger mon CV</span></a>
+</div>
+</section>
+<section>
+<h2 class="section-title"><i class="fas fa-graduation-cap"></i> <span id="eduTitle">Formation</span></h2>
+<div class="timeline" id="eduTimeline"></div>
+</section>
+<section>
+<h2 class="section-title"><i class="fas fa-code"></i> <span id="skillsTitle">Compétences techniques</span></h2>
+<div class="skills-bars" id="skillsBars"></div>
+</section>
+<section>
+<h2 class="section-title"><i class="fas fa-briefcase"></i> <span id="projectsTitle">Projets</span></h2>
+<div class="projects-grid" id="projectsGrid"></div>
+</section>
+<section>
+<h2 class="section-title"><i class="fas fa-language"></i> <span id="langTitle">Langues</span></h2>
+<div class="lang-list" id="langList"></div>
+</section>
+<section>
+<h2 class="section-title"><i class="fas fa-images"></i> <span id="galleryTitle">Galerie</span></h2>
+<div class="gallery-grid" id="galleryGrid"></div>
+</section>
+<footer><p id="footerText">© 2025 Sarra Bouzaiene — Portfolio personnel · <a href="mailto:Sarrabouzaiene8@gmail.com">Me contacter</a></p></footer>
+</div>
+<script>
+(function(){
+const translations={
+fr:{heroSub:"Étudiante en Business Computing – E-Business",heroTagline:"DÉVELOPPEMENT WEB • IA / DATA • E-BUSINESS",skillsTitle:"Compétences techniques",projectsTitle:"Projets",eduTitle:"Formation",langTitle:"Langues",galleryTitle:"Galerie",footer:'© 2025 Sarra Bouzaiene — Portfolio personnel · <a href="mailto:Sarrabouzaiene8@gmail.com">Me contacter</a>',cvBtn:"Télécharger mon CV",themeLight:"Clair",themeDark:"Sombre",skills:[{icon:"fa-java",name:"Java",level:85},{icon:"fa-python",name:"Python",level:80},{icon:"fa-html5",name:"HTML / CSS",level:90},{icon:"fa-js",name:"JavaScript",level:75},{icon:"fa-php",name:"PHP",level:70},{icon:"fa-database",name:"SQL / MySQL",level:80},{icon:"fa-bootstrap",name:"Bootstrap",level:85},{icon:"fa-brain",name:"IA / Data",level:65}],projects:[{badge:"Entrepreneurial",title:"Thriftique — E-commerce",desc:"Plateforme e-commerce de vente en ligne. Gestion complète : produits, commandes, stocks, logistique. Chatbot Python pour automatiser les FAQ. Plus de 350 000 vues sur Instagram.",tech:["PHP","MySQL","JavaScript","Python","Bootstrap"]},{badge:"Académique",title:"Gestion de CV & Entretiens",desc:"Application Java intégrant des fonctionnalités intelligentes pour aider les étudiants à structurer leur CV et préparer leurs entretiens d'embauche.",tech:["Java","POO","UI"]},{badge:"Académique",title:"Site E-commerce Front-End",desc:"Conception design et front-end d'un site e-commerce en équipe, incluant la structuration de la base de données SQL.",tech:["HTML","CSS","Bootstrap","SQL"]}],education:[{title:"Licence Business Computing – E-Business",meta:"ESEECT Monfleurv · 2024 - Présent",desc:"Formation en développement logiciel, web, bases de données et analyse de données."},{title:"Baccalauréat Mathématiques",meta:"Lycée Mohamed Brahmi · 2024",desc:"Spécialité mathématiques, mention obtenue."}],languages:[{icon:"fa-language",name:"Arabe",level:"Langue maternelle"},{icon:"fa-language",name:"Français",level:"Compétence professionnelle"},{icon:"fa-language",name:"Anglais",level:"Compétence de travail"}],gallery:[{emoji:"📊",label:"Thriftique Stats"},{emoji:"💻",label:"Code Java"},{emoji:"🐍",label:"Python"},{emoji:"🗄️",label:"MySQL"},{emoji:"🌐",label:"Web Dev"},{emoji:"📈",label:"Analyse Data"},{emoji:"🛍️",label:"E-commerce"},{emoji:"🤖",label:"Chatbot IA"}]},
+en:{heroSub:"Business Computing Student – E-Business",heroTagline:"WEB DEVELOPMENT • AI / DATA • E-BUSINESS",skillsTitle:"Technical skills",projectsTitle:"Projects",eduTitle:"Education",langTitle:"Languages",galleryTitle:"Gallery",footer:'© 2025 Sarra Bouzaiene — Personal portfolio · <a href="mailto:Sarrabouzaiene8@gmail.com">Contact me</a>',cvBtn:"Download my CV",themeLight:"Light",themeDark:"Dark",skills:[{icon:"fa-java",name:"Java",level:85},{icon:"fa-python",name:"Python",level:80},{icon:"fa-html5",name:"HTML / CSS",level:90},{icon:"fa-js",name:"JavaScript",level:75},{icon:"fa-php",name:"PHP",level:70},{icon:"fa-database",name:"SQL / MySQL",level:80},{icon:"fa-bootstrap",name:"Bootstrap",level:85},{icon:"fa-brain",name:"AI / Data",level:65}],projects:[{badge:"Entrepreneurial",title:"Thriftique — E-commerce",desc:"Online e-commerce platform. Full management: products, orders, stock, logistics. Python chatbot to automate FAQs. Over 350,000 Instagram views.",tech:["PHP","MySQL","JavaScript","Python","Bootstrap"]},{badge:"Academic",title:"CV & Interview Manager",desc:"Java application with smart features to help students structure their CV and prepare for job interviews.",tech:["Java","OOP","UI"]},{badge:"Academic",title:"E-commerce Front-End",desc:"Design and front-end of an e-commerce website as a team, including SQL database structuring.",tech:["HTML","CSS","Bootstrap","SQL"]}],education:[{title:"Bachelor in Business Computing – E-Business",meta:"ESEECT Monfleurv · 2024 - Present",desc:"Training in software development, web, databases and data analysis."},{title:"Mathematics Baccalaureate",meta:"Lycée Mohamed Brahmi · 2024",desc:"Mathematics specialization."}],languages:[{icon:"fa-language",name:"Arabic",level:"Native language"},{icon:"fa-language",name:"French",level:"Professional proficiency"},{icon:"fa-language",name:"English",level:"Working proficiency"}],gallery:[{emoji:"📊",label:"Thriftique Stats"},{emoji:"💻",label:"Java Code"},{emoji:"🐍",label:"Python"},{emoji:"🗄️",label:"MySQL"},{emoji:"🌐",label:"Web Dev"},{emoji:"📈",label:"Data Analysis"},{emoji:"🛍️",label:"E-commerce"},{emoji:"🤖",label:"AI Chatbot"}]},
+ar:{heroSub:"طالبة في حوسبة الأعمال – التجارة الإلكترونية",heroTagline:"تطوير الويب • الذكاء الاصطناعي / البيانات • التجارة الإلكترونية",skillsTitle:"المهارات التقنية",projectsTitle:"المشاريع",eduTitle:"التكوين",langTitle:"اللغات",galleryTitle:"معرض الصور",footer:'© 2025 سارة بوزيان — ملف شخصي · <a href="mailto:Sarrabouzaiene8@gmail.com">اتصل بي</a>',cvBtn:"تحميل سيرتي الذاتية",themeLight:"فاتح",themeDark:"داكن",skills:[{icon:"fa-java",name:"Java",level:85},{icon:"fa-python",name:"Python",level:80},{icon:"fa-html5",name:"HTML / CSS",level:90},{icon:"fa-js",name:"JavaScript",level:75},{icon:"fa-php",name:"PHP",level:70},{icon:"fa-database",name:"SQL / MySQL",level:80},{icon:"fa-bootstrap",name:"Bootstrap",level:85},{icon:"fa-brain",name:"ذكاء اصطناعي / بيانات",level:65}],projects:[{badge:"مشروع شخصي",title:"Thriftique — التجارة الإلكترونية",desc:"منصة تجارة إلكترونية للبيع عبر الإنترنت. إدارة كاملة: المنتجات، الطلبات، المخزون، اللوجستيك. روبوت محادثة Python لأتمتة الأسئلة الشائعة. أكثر من 350 ألف مشاهدة على إنستغرام.",tech:["PHP","MySQL","JavaScript","Python","Bootstrap"]},{badge:"أكاديمي",title:"إدارة السيرة الذاتية والمقابلات",desc:"تطبيق Java بميزات ذكية لمساعدة الطلاب على هيكلة سيرتهم الذاتية والتحضير لمقابلات العمل.",tech:["Java","POO","UI"]},{badge:"أكاديمي",title:"واجهة موقع تجارة إلكترونية",desc:"تصميم وواجهة أمامية لموقع تجارة إلكترونية ضمن فريق، مع هيكلة قاعدة بيانات SQL.",tech:["HTML","CSS","Bootstrap","SQL"]}],education:[{title:"ليسانس حوسبة الأعمال – التجارة الإلكترونية",meta:"ESEECT Monfleurv · 2024 - الآن",desc:"تكوين في تطوير البرمجيات، الويب، قواعد البيانات وتحليل البيانات."},{title:"بكالوريا رياضيات",meta:"ثانوية محمد البراهمي · 2024",desc:"تخصص رياضيات."}],languages:[{icon:"fa-language",name:"العربية",level:"اللغة الأم"},{icon:"fa-language",name:"الفرنسية",level:"كفاءة مهنية"},{icon:"fa-language",name:"الإنجليزية",level:"كفاءة عمل"}],gallery:[{emoji:"📊",label:"إحصائيات Thriftique"},{emoji:"💻",label:"كود Java"},{emoji:"🐍",label:"Python"},{emoji:"🗄️",label:"MySQL"},{emoji:"🌐",label:"تطوير الويب"},{emoji:"📈",label:"تحليل البيانات"},{emoji:"🛍️",label:"تجارة إلكترونية"},{emoji:"🤖",label:"روبوت محادثة"}]}
+};
+let currentLang='fr';let currentTheme='light';
+const heroSub=document.getElementById('heroSub'),heroTagline=document.getElementById('heroTagline'),skillsTitle=document.getElementById('skillsTitle'),projectsTitle=document.getElementById('projectsTitle'),eduTitle=document.getElementById('eduTitle'),langTitle=document.getElementById('langTitle'),galleryTitle=document.getElementById('galleryTitle'),footerText=document.getElementById('footerText'),skillsBars=document.getElementById('skillsBars'),projectsGrid=document.getElementById('projectsGrid'),eduTimeline=document.getElementById('eduTimeline'),langList=document.getElementById('langList'),galleryGrid=document.getElementById('galleryGrid'),themeToggle=document.getElementById('themeToggle'),themeLabel=document.getElementById('themeLabel'),cvBtnText=document.getElementById('cvBtnText'),langBtns=document.querySelectorAll('.lang-btn'),htmlElement=document.documentElement;
+function renderContent(){const t=translations[currentLang];
+heroSub.textContent=t.heroSub;heroTagline.textContent=t.heroTagline;skillsTitle.textContent=t.skillsTitle;projectsTitle.textContent=t.projectsTitle;eduTitle.textContent=t.eduTitle;langTitle.textContent=t.langTitle;galleryTitle.textContent=t.galleryTitle;footerText.innerHTML=t.footer;cvBtnText.textContent=t.cvBtn;
+skillsBars.innerHTML=t.skills.map(s=>`<div class="skill-bar-item"><div class="skill-bar-header"><span class="name"><i class="fab ${s.icon}"></i> ${s.name}</span><span class="percent">${s.level}%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="${s.level}"></div></div></div>`).join('');
+setTimeout(()=>{document.querySelectorAll('.skill-bar-fill').forEach(bar=>{bar.style.width=bar.getAttribute('data-level')+'%'})},100);
+projectsGrid.innerHTML=t.projects.map(p=>`<div class="project-card"><span class="badge">${p.badge}</span><h3>${p.title}</h3><p>${p.desc}</p><div class="tech">${p.tech.map(tech=>`<span>${tech}</span>`).join('')}</div></div>`).join('');
+eduTimeline.innerHTML=t.education.map(e=>`<div class="timeline-item"><h4>${e.title}</h4><div class="meta">${e.meta}</div><p>${e.desc}</p></div>`).join('');
+langList.innerHTML=t.languages.map(l=>`<div class="lang-item"><i class="fas ${l.icon}"></i><div><div>${l.name}</div><div class="level">${l.level}</div></div></div>`).join('');
+galleryGrid.innerHTML=t.gallery.map(g=>`<div class="gallery-item"><div>${g.emoji}</div><div class="label">${g.label}</div></div>`).join('');
+updateThemeLabel()}
+function setTheme(theme){currentTheme=theme;if(theme==='dark')htmlElement.setAttribute('data-theme','dark');else htmlElement.removeAttribute('data-theme');updateThemeLabel()}
+function updateThemeLabel(){const t=translations[currentLang];const isDark=currentTheme==='dark';themeLabel.textContent=isDark?t.themeLight:t.themeDark;themeToggle.querySelector('i').className=isDark?'fas fa-sun':'fas fa-moon'}
+themeToggle.addEventListener('click',()=>setTheme(currentTheme==='dark'?'light':'dark'));
+function setLanguage(lang){currentLang=lang;if(lang==='ar'){htmlElement.setAttribute('dir','rtl');htmlElement.setAttribute('lang','ar')}else{htmlElement.setAttribute('dir','ltr');htmlElement.setAttribute('lang',lang)}langBtns.forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));renderContent()}
+langBtns.forEach(btn=>btn.addEventListener('click',e=>setLanguage(e.target.dataset.lang)));
+setTheme('light');setLanguage('fr');
+const canvas=document.getElementById('particle-canvas'),ctx=canvas.getContext('2d');let width,height,particles=[];const PARTICLE_COUNT=70,MAX_DIST=130,MOUSE_RADIUS=170,mouse={x:null,y:null,active:false};
+function resizeCanvas(){width=window.innerWidth;height=window.innerHeight;canvas.width=width;canvas.height=height;initParticles()}
+function initParticles(){particles=[];for(let i=0;i<PARTICLE_COUNT;i++){particles.push({x:Math.random()*width,y:Math.random()*height,vx:(Math.random()-.5)*.55,vy:(Math.random()-.5)*.55,size:Math.random()*2.4+1.2})}}
+function getParticleColors(){const style=getComputedStyle(document.documentElement);return{primary:style.getPropertyValue('--particle-color').trim()||'230, 57, 86',accent:style.getPropertyValue('--particle-accent').trim()||'255, 179, 198'}}
+function draw(){if(!width||!height)return;ctx.clearRect(0,0,width,height);const colors=getParticleColors(),primaryRgb=colors.primary,accentRgb=colors.accent;
+particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>width)p.vx*=-1;if(p.y<0||p.y>height)p.vy*=-1;
+if(mouse.active&&mouse.x!==null){const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<MOUSE_RADIUS&&dist>.1){const force=(MOUSE_RADIUS-dist)/MOUSE_RADIUS;p.x-=(dx/dist)*force*1.1;p.y-=(dy/dist)*force*1.1}}
+p.x=Math.max(0,Math.min(width,p.x));p.y=Math.max(0,Math.min(height,p.y))});
+for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<MAX_DIST){const opacity=(1-dist/MAX_DIST)*.45;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(${primaryRgb}, ${opacity*.8})`;ctx.lineWidth=1.1;ctx.stroke()}}}
+particles.forEach(p=>{const useAccent=(p.x+p.y)%2===0,rgb=useAccent?accentRgb:primaryRgb;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=`rgba(${rgb}, .75)`;ctx.fill();ctx.shadowColor=`rgba(${primaryRgb}, .5)`;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0});
+if(mouse.active&&mouse.x!==null){ctx.beginPath();ctx.arc(mouse.x,mouse.y,30,0,Math.PI*2);ctx.strokeStyle=`rgba(${accentRgb}, .4)`;ctx.lineWidth=1.6;ctx.stroke()}
+requestAnimationFrame(draw)}
+window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.active=true});
+window.addEventListener('mouseleave',()=>{mouse.active=false;mouse.x=null;mouse.y=null});
+window.addEventListener('touchmove',e=>{if(e.touches.length>0){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;mouse.active=true}},{passive:true});
+window.addEventListener('touchend',()=>{mouse.active=false;mouse.x=null;mouse.y=null});
+window.addEventListener('resize',resizeCanvas);
+resizeCanvas();draw();
+document.getElementById('cvBtn').addEventListener('click',e=>{e.preventDefault();alert('📄 Pour activer le téléchargement : remplacez le lien du bouton par l\'URL de votre CV PDF.')});
+})();
+</script>
+</body>
+</html>
